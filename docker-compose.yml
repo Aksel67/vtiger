@@ -1,0 +1,39 @@
+version: '3.3'
+services:
+  php-apache:
+    container_name: php-apache
+    image: vt-php-apache:v1.0
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+    - db
+    volumes:
+      - ./vt/vtiger:/var/www/html/
+      #- ./vt/apache:/etc/apache2/
+    ports:
+      - 80:80
+  db:
+    container_name: db
+    image: db:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: wqA12Zsx!
+      MYSQL_DATABASE: vtiger
+      MYSQL_USER: vtigeradm
+      MYSQL_PASSWORD: wqA12Zsx!
+    volumes:
+      - ./vt/mysql_data:/var/lib/mysql/
+      #- ./vt/mysql_conf/:/etc/mysql/
+    ports:
+      - "3306:3306"
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: vt-phpmyadmin:v1.0
+    ports:
+      - '8080:80'
+    restart: always
+    environment:
+      PMA_HOST: db
+    depends_on:
+      - db
+    
