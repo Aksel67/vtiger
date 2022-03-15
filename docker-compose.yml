@@ -2,7 +2,7 @@ version: '3.3'
 services:
   php-apache:
     container_name: php-apache
-    image: vt-php-apache:v1.0
+    image: vt-php-apache:latest
     build:
       context: ./
       dockerfile: Dockerfile
@@ -15,7 +15,7 @@ services:
       - 80:80
   db:
     container_name: db
-    image: db:latest
+    image: vt-db:latest
     environment:
       MYSQL_ROOT_PASSWORD: wqA12Zsx!
       MYSQL_DATABASE: vtiger
@@ -28,7 +28,7 @@ services:
       - "3306:3306"
   phpmyadmin:
     container_name: phpmyadmin
-    image: vt-phpmyadmin:v1.0
+    image: vt-phpmyadmin:latest
     ports:
       - '8080:80'
     restart: always
